@@ -3,7 +3,7 @@ pydbtcloud is a developer kit for interfacing with the [dbt Cloud v2 API](https:
 
 # Authentication
 
-```bash
+```python
 from pydbtcloud import DbtCloud
 dbtcloud = DbtCloud(account_id='account_id', api_token='api_token')
 ```
@@ -12,13 +12,13 @@ dbtcloud = DbtCloud(account_id='account_id', api_token='api_token')
 
 Get information about a specific dbt cloud job:
 
-```bash
+```python
 response = dbtcloud.get_job(1234)
 ```
 
 You can iterate through pages using the following syntax:
 
-```bash
+```python
 for page in dbtcloud.list_runs():
   for run in page.get('data'):
     print(run.get('id'))
