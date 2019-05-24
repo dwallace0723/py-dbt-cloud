@@ -8,7 +8,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="pydbtcloud",
-    version="0.0.1",
+    version="0.0.2",
     description="Python SDK for dbt Cloud.",
     keywords="dbt",
     long_description=README,
