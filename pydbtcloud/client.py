@@ -17,14 +17,13 @@ class DbtCloud:
         url = self.api_base + url_suffix
         headers = self._construct_headers()
         response = requests.get(url, headers=headers, params=params)
-        response.raise_for_status()
         return response.json()
 
-    def _post(self, url_suffix: str, params: Dict = None, data: Dict = None) -> Dict:
+    def _post(self, url_suffix: str, params: Dict = None, data: Dict = None,
+              headers: Dict = None) -> Dict:
         url = self.api_base + url_suffix
-        headers = self._construct_headers()
+        headers = headers or self._construct_headers()
         response = requests.post(url, headers=headers, params=params, data=data)
-        response.raise_for_status()
         return response.json()
 
     def list_connections(self, params: Dict = None):
@@ -77,14 +76,17 @@ class DbtCloud:
         response = self._get(url_suffix, params)
         return DbtCloudResponse(self, url_suffix, params, response)
 
-    def run_job(self, job_id: int, params: Dict = None, data: Dict = {'cause': 'Kicked off via pydbtcloud SDK'}):
+    def run_job(self, job_id: int, params: Dict = None,
+                data: Dict = {'cause': 'Kicked off via pydbtcloud SDK'},
+                headers: Dict = None):
         url_suffix = f"/accounts/{self.account_id}/jobs/{job_id}/run/"
-        response = self._post(url_suffix, params, data)
+        response = self._post(url_suffix, params, data, headers)
         return DbtCloudResponse(self, url_suffix, params, response)
 
-    def cancel_run(self, run_id: int, params: Dict = None, data: Dict = None):
+    def cancel_run(self, run_id: int, params: Dict = None, data: Dict = None,
+                   headers: Dict = None):
         url_suffix = f"/accounts/{self.account_id}/runs/{run_id}/cancel/"
-        response = self._post(url_suffix, params, data)
+        response = self._post(url_suffix, params, data, headers)
         return DbtCloudResponse(self, url_suffix, params, response)
 
 
