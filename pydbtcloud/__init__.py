@@ -1,1 +1,1 @@
-from .client import DbtCloud
+from .client import DbtCloud, DbtCloudResponse
