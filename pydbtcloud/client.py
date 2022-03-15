@@ -17,7 +17,6 @@ class DbtCloud:
         url = self.api_base + url_suffix
         headers = self._construct_headers()
         response = requests.get(url, headers=headers, params=params)
-        response.raise_for_status()
         return response.json()
 
     def _post(self, url_suffix: str, params: Dict = None, data: Dict = None,
@@ -25,7 +24,6 @@ class DbtCloud:
         url = self.api_base + url_suffix
         headers = headers or self._construct_headers()
         response = requests.post(url, headers=headers, params=params, data=data)
-        response.raise_for_status()
         return response.json()
 
     def list_connections(self, params: Dict = None):
